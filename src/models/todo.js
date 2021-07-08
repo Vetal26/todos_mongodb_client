@@ -1,7 +1,7 @@
 export default class Todo {
     constructor(todo) {
         this.title = todo.title;
-        this.id = todo._id;
+        this.id = todo.id;
         this.isDone = todo.isDone;
         this.position = todo.position;
     }

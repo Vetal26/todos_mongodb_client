@@ -135,7 +135,9 @@ export default class TodoList {
     }
 
     getIdxTodo(id) {
-        return this.todos.findIndex(t => t.id === id)
+        let todoId = id;
+        if (!isNaN(todoId)) todoId = +todoId;
+        return this.todos.findIndex(t => t.id === todoId);
     }
 
     isTodo(id) {
@@ -144,10 +146,7 @@ export default class TodoList {
     }
 
     async updateList(prevTodoId, currentTodoId, nextTodoId) {
-        let todosPosition = {
-            prevTodoPosition: this.isTodo(prevTodoId),
-            nextTodoPosition: this.isTodo(nextTodoId)
-        }
+        let todosPosition = [ this.isTodo(prevTodoId), this.isTodo(nextTodoId)]
 
         let newPosCurrentTodo = await fetch(`http://${config.development.host}:${config.development.port}/dnd/${currentTodoId}`, {
             method: 'PATCH',
